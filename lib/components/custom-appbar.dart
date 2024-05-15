@@ -9,6 +9,8 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const accentColor = Color.fromARGB(255, 114, 114, 114);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
@@ -31,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
                       child: SvgPicture.asset(
                         'assets/icons/paws.svg',
                         width: 30,
-                        color: NeumorphicTheme.accentColor(context),
+                        color: accentColor,
                       ),
                     ),
                     NeumorphicButton(
@@ -46,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
                       child: Image.asset(
                         'assets/icons/heart-rate.png',
                         width: 30,
-                        color: NeumorphicTheme.accentColor(context),
+                        color: accentColor,
                       ),
                     ),
                     NeumorphicButton(
@@ -61,7 +63,7 @@ class CustomAppBar extends StatelessWidget {
                       child: SvgPicture.asset(
                         'assets/icons/doctor.svg',
                         width: 30,
-                        color: NeumorphicTheme.accentColor(context),
+                        color: accentColor,
                       ),
                     ),
                     NeumorphicButton(
@@ -75,7 +77,7 @@ class CustomAppBar extends StatelessWidget {
                       onPressed: () {},
                       child: Icon(
                         Icons.location_on,
-                        color: NeumorphicTheme.accentColor(context),
+                        color: accentColor,
                         size: 30,
                       ),
                     ),

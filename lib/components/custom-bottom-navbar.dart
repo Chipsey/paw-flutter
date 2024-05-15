@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const accentColor = Color.fromARGB(255, 114, 114, 114);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
@@ -29,7 +30,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     onPressed: () {},
                     child: Icon(
                       Icons.volume_up,
-                      color: NeumorphicTheme.accentColor(context),
+                      color: accentColor,
                       size: 30,
                     ),
                   ),
@@ -44,7 +45,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     onPressed: () {},
                     child: Icon(
                       Icons.mic,
-                      color: NeumorphicTheme.accentColor(context),
+                      color: accentColor,
                       size: 30,
                     ),
                   ),

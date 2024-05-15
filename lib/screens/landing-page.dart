@@ -13,9 +13,12 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  final baseColor = Color.fromARGB(255, 149, 149, 149);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: baseColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
