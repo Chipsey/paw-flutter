@@ -12,15 +12,10 @@ class MyApp extends StatelessWidget {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      themeMode: ThemeMode.light,
       theme: NeumorphicThemeData(
-        baseColor: Color.fromARGB(255, 232, 232, 232),
+        baseColor: Color.fromARGB(255, 149, 149, 149),
         lightSource: LightSource.topLeft,
-        depth: 3,
-      ),
-      darkTheme: NeumorphicThemeData(
-        baseColor: Color(0xFF3E3E3E),
-        lightSource: LightSource.topLeft,
+        accentColor: Color.fromARGB(255, 114, 114, 114),
         depth: 3,
       ),
       home: LandingPage(),
