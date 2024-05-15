@@ -11,7 +11,7 @@ class CustomBottomNavBar extends StatelessWidget {
     const accentColor = Color.fromARGB(255, 114, 114, 114);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
       child: Column(
         children: [
           Row(

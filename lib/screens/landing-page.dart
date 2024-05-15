@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:paw/components/custom-appbar.dart';
 import 'package:paw/components/custom-bottom-navbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -13,31 +15,110 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  //////////////// Color Data ///////////////////
   final baseColor = Color.fromARGB(255, 149, 149, 149);
+  final accentColor = Color.fromARGB(255, 114, 114, 114);
+  ///////////////////////////////////////////////
+
+  final petName = "Paw";
 
   @override
   Widget build(BuildContext context) {
+    double fullDisplayWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: baseColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.stretch, // Use stretch to fill horizontal space
         children: [
           ////////////////// App Bar /////////////////////
           CustomAppBar(),
-          Expanded(
+          Center(
+            // child: Expanded(
             //////////////////// Scrollable Content /////////////////////
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   ///////////////////// Body /////////////////////
+                  pawCircle(petName, fullDisplayWidth),
                 ],
               ),
             ),
+            // ),
           ),
           // Bottom Nav Bar
           CustomBottomNavBar(),
         ],
+      ),
+    );
+  }
+
+  Widget pawCircle(String petName, double fullDisplayWidth) {
+    return Neumorphic(
+      style: NeumorphicStyle(
+        surfaceIntensity: 10,
+        shape: NeumorphicShape.concave,
+        depth: 10,
+        lightSource: LightSource.topLeft,
+        color: Colors.grey[100],
+        boxShape: NeumorphicBoxShape.circle(),
+        border: NeumorphicBorder(
+          color: accentColor,
+          width: 10,
+        ),
+      ),
+      padding: EdgeInsets.all(fullDisplayWidth / 20),
+      child: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(fullDisplayWidth / 10),
+              child: Column(
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/paw.svg',
+                    width: fullDisplayWidth / 3,
+                    color: baseColor,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    petName,
+                    style: TextStyle(
+                      fontSize: fullDisplayWidth / 16,
+                      fontWeight: FontWeight.bold,
+                      color: baseColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: fullDisplayWidth / 8,
+              height: 8,
+              decoration: BoxDecoration(
+                color: accentColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              width: fullDisplayWidth / 10,
+              height: 7,
+              decoration: BoxDecoration(
+                color: accentColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
