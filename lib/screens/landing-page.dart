@@ -7,9 +7,15 @@ import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:paw/components/custom-appbar.dart';
 import 'package:paw/components/custom-bottom-navbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paw/components/sphere/sphere_ball.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  final double fullDisplayWidth;
+
+  const LandingPage({
+    super.key,
+    required this.fullDisplayWidth,
+  });
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -23,10 +29,11 @@ class _LandingPageState extends State<LandingPage> {
 
   final petName = "Jerry";
   bool openCamera = false;
+  double lightHorizontal = 0;
+  double lightVertical = 0.4;
 
   @override
   Widget build(BuildContext context) {
-    double fullDisplayWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: baseColor,
       body: Column(
@@ -41,8 +48,8 @@ class _LandingPageState extends State<LandingPage> {
               Column(
                 children: [
                   ///////////////////// Body /////////////////////
-                  pawCircle(petName, fullDisplayWidth),
-                  // pawCircle(petName, fullDisplayWidth),
+                  SphereBall(),
+                  // pawCircle(petName, widget.fullDisplayWidth),
                 ],
               ),
             ],
@@ -54,105 +61,33 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
+  void _onPanUpdate(DragUpdateDetails details) {
+    setState(() {
+      // Normalize the light source values to be between -1 and 1
+      lightHorizontal =
+          (details.localPosition.dx / widget.fullDisplayWidth) * 3 - 1;
+      lightVertical =
+          (details.localPosition.dy / widget.fullDisplayWidth) * 3 - 1;
+
+      // Clamp the values to ensure they stay within the valid range
+      lightHorizontal = lightHorizontal.clamp(-1.0, 1.0) * -1;
+      lightVertical = lightVertical.clamp(-1.0, 1.0) * -1;
+    });
+  }
+
   Widget pawCircle(String petName, double fullDisplayWidth) {
     return Column(
       children: [
         Center(
-          child: Draggable<bool>(
-            childWhenDragging: Container(),
-            feedback: Neumorphic(
-              style: NeumorphicStyle(
-                surfaceIntensity: 10,
-                shape: NeumorphicShape.concave,
-                depth: 10,
-                lightSource: LightSource.bottomRight,
-                color: Colors.grey[100],
-                boxShape: NeumorphicBoxShape.circle(),
-                border: NeumorphicBorder(
-                  color: accentColor,
-                  width: 10,
-                ),
-              ),
-              padding: EdgeInsets.all(fullDisplayWidth / 8),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(fullDisplayWidth / 15),
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/paw.svg',
-                              width: fullDisplayWidth / 3,
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              petName,
-                              style: TextStyle(
-                                fontSize: fullDisplayWidth / 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(0, 255, 255, 255),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: fullDisplayWidth / 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(0, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: fullDisplayWidth / 10,
-                        height: 7,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(0, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    top: fullDisplayWidth / 30,
-                    child: Icon(Icons.electric_bolt,
-                        color: baseColor, size: fullDisplayWidth / 15),
-                  ),
-                  Positioned(
-                    bottom: fullDisplayWidth / 30,
-                    child: Icon(Icons.camera,
-                        color: baseColor, size: fullDisplayWidth / 15),
-                  ),
-                  Positioned(
-                    left: 0,
-                    child: Icon(Icons.phone_in_talk,
-                        color: baseColor, size: fullDisplayWidth / 15),
-                  ),
-                  Positioned(
-                    right: 0,
-                    child: Icon(Icons.emergency_share,
-                        color: baseColor, size: fullDisplayWidth / 15),
-                  ),
-                ],
-              ),
-            ),
+          child: GestureDetector(
+            onPanUpdate: _onPanUpdate,
             child: Neumorphic(
               style: NeumorphicStyle(
-                surfaceIntensity: 10,
+                oppositeShadowLightSource: true,
+                surfaceIntensity: 0.3,
                 shape: NeumorphicShape.concave,
-                depth: 10,
-                lightSource: LightSource.topLeft,
+                depth: 50,
+                lightSource: LightSource(lightHorizontal, lightVertical),
                 color: Colors.grey[100],
                 boxShape: NeumorphicBoxShape.circle(),
                 border: NeumorphicBorder(
@@ -210,28 +145,6 @@ class _LandingPageState extends State<LandingPage> {
             ),
           ),
         ),
-        // DragTarget<int>(
-        //   builder: (
-        //     BuildContext context,
-        //     List<dynamic> accepted,
-        //     List<dynamic> rejected,
-        //   ) {
-        //     return Container(
-        //       height: 100.0,
-        //       width: 100.0,
-        //       color: Colors.cyan,
-        //       child: Center(
-        //         child: Text('Value'),
-        //       ),
-        //     );
-        //   },
-        //   onAcceptWithDetails: (DragTargetDetails<int> details) {
-        //     setState(() {
-        //       openCamera = true;
-        //       print("camera: " + openCamera.toString());
-        //     });
-        //   },
-        // ),
       ],
     );
   }

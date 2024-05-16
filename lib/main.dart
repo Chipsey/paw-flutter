@@ -10,6 +10,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    double fullDisplayWidth = MediaQuery.of(context).size.width;
+
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -19,7 +21,9 @@ class MyApp extends StatelessWidget {
         accentColor: Color.fromARGB(255, 114, 114, 114),
         depth: 3,
       ),
-      home: LandingPage(),
+      home: LandingPage(
+        fullDisplayWidth: fullDisplayWidth,
+      ),
     );
   }
 }
