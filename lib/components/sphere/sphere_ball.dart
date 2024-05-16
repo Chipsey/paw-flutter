@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:paw/components/sphere/d_curved.dart';
 import 'package:paw/components/sphere/shadow_sphere.dart';
 import 'package:paw/components/sphere/sphere_density.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SphereBall extends StatefulWidget {
   const SphereBall({super.key});
@@ -20,6 +23,10 @@ class _SphereBallState extends State<SphereBall>
   Offset _startPoint = Offset.zero;
   Offset _currentPoint = Offset.zero;
   static double globalSize = 0;
+
+  String _currentAction = '';
+
+  File? _selectedImage;
 
   late AnimationController _controller;
   late Animation<Offset> _animation;
@@ -57,9 +64,10 @@ class _SphereBallState extends State<SphereBall>
   void _onPanUpdate(DragUpdateDetails details) {
     setState(() {
       if (_calSquareRoot(_currentPoint.dx, _currentPoint.dy) <=
-          globalSize * 0.4) {
+          globalSize * 0.35) {
         // _currentPoint = Offset.zero;
         _currentPoint = details.localPosition - _startPoint;
+        print(_currentPoint);
       }
     });
   }
@@ -76,10 +84,61 @@ class _SphereBallState extends State<SphereBall>
     _controller.reset();
     _controller.forward();
 
+    Offset _memory = _currentPoint;
+
     setState(() {
       _startPoint = Offset.zero;
       _currentPoint = Offset.zero;
     });
+
+    if (_memory.dy <= -100) {
+      print("Start Camera");
+      setState(() {
+        _currentAction = "Loading Camera..";
+      });
+      _pickImageFromCamera();
+    }
+    if (_memory.dy >= 100) {
+      print("Start Gallery");
+      setState(() {
+        _currentAction = "Loading Gallery..";
+      });
+      _pickImageFromGallery();
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    final XFile? pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _currentAction = "";
+    });
+
+    if (pickedImage != null) {
+      final File imageFile = File(pickedImage.path);
+
+      setState(() {
+        _selectedImage = imageFile;
+      });
+
+      // imageProvider.changeImageFile(imageFile);
+    }
+  }
+
+  Future _pickImageFromCamera() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _currentAction = "";
+    });
+
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    }
   }
 
   double _calSquareRoot(double x, double y) {
@@ -96,33 +155,49 @@ class _SphereBallState extends State<SphereBall>
       onPanUpdate: _onPanUpdate,
       onPanEnd: _onPanEnd,
       child: Center(
-        child: Stack(
+        child: Column(
           children: [
-            ShadowSphere(diameter: size.shortestSide),
-            SphereDensity(
-              lightSource: lightSource,
-              diameter: size.shortestSide,
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) {
-                  return Transform.translate(
-                    offset: _animation.value,
-                    child: Transform(
-                      origin: size
-                          .center(Offset(_currentPoint.dx, _currentPoint.dy)),
-                      transform: Matrix4.identity()
-                        ..scale(0.5)
-                        ..rotateX(-_currentPoint.dy / size.shortestSide)
-                        ..rotateY(_currentPoint.dx / size.shortestSide),
-                      child: DCurved(
-                        lightSource: lightSource,
-                        size: size.shortestSide,
-                      ),
-                    ),
-                  );
-                },
-              ),
+            Stack(
+              children: [
+                ShadowSphere(diameter: size.shortestSide),
+                SphereDensity(
+                  lightSource: lightSource,
+                  diameter: size.shortestSide,
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: _animation.value,
+                        child: Transform(
+                          origin: size.center(
+                              Offset(_currentPoint.dx, _currentPoint.dy)),
+                          transform: Matrix4.identity()
+                            ..scale(0.5)
+                            ..rotateX(-_currentPoint.dy / size.shortestSide)
+                            ..rotateY(_currentPoint.dx / size.shortestSide),
+                          child: DCurved(
+                            lightSource: lightSource,
+                            size: size.shortestSide,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+            SizedBox(
+              height: 20,
+            ),
+            if (_currentAction != '') ...[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  Text(_currentAction),
+                ],
+              ),
+            ]
           ],
         ),
       ),
