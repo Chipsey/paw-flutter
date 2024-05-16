@@ -110,7 +110,10 @@ class _SphereBallState extends State<SphereBall>
                     child: Transform(
                       origin: size
                           .center(Offset(_currentPoint.dx, _currentPoint.dy)),
-                      transform: Matrix4.identity()..scale(0.5),
+                      transform: Matrix4.identity()
+                        ..scale(0.5)
+                        ..rotateX(-_currentPoint.dy / size.shortestSide)
+                        ..rotateY(_currentPoint.dx / size.shortestSide),
                       child: DCurved(
                         lightSource: lightSource,
                         size: size.shortestSide,

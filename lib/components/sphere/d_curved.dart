@@ -45,7 +45,7 @@ class DCurved extends StatelessWidget {
           Text(
             petName,
             style: TextStyle(
-              fontSize: size / 15,
+              fontSize: size / 13,
               fontWeight: FontWeight.bold,
               color: primaryColor,
             ),
