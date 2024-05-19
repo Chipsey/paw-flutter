@@ -9,9 +9,9 @@ class DCurved extends StatelessWidget {
   final double size;
   const DCurved({super.key, required this.lightSource, required this.size});
   //////////////// Color Data ///////////////////
-  static final baseColor = Color.fromARGB(50, 149, 149, 149);
-  static final accentColor = Color.fromARGB(255, 114, 114, 114);
-  static final primaryColor = Color.fromARGB(170, 240, 240, 240);
+  static final accentColor = Color.fromARGB(255, 164, 164, 164);
+  static final baseColor = Color.fromARGB(255, 114, 114, 114);
+  static final primaryColor = Color.fromARGB(170, 0, 0, 0);
   ///////////////////////////////////////////////
 
   @override

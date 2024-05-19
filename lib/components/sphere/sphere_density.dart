@@ -20,8 +20,8 @@ class SphereDensity extends StatefulWidget {
 
 class _SphereDensityState extends State<SphereDensity> {
   //////////////// Color Data ///////////////////
-  final baseColor = Color.fromARGB(255, 149, 149, 149);
-  final accentColor = Color.fromARGB(255, 114, 114, 114);
+  final accentColor = Color.fromARGB(0, 140, 140, 140);
+  final baseColor = Color.fromARGB(0, 114, 114, 114);
   ///////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {

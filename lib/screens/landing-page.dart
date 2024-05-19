@@ -7,7 +7,8 @@ import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:paw/components/custom-appbar.dart';
 import 'package:paw/components/custom-bottom-navbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:paw/components/sphere/sphere_ball.dart';
+// import 'package:paw/components/sphere/sphere_ball.dart';
+import 'package:paw/components/sphere/sphere_ball-full-rotate.dart';
 
 class LandingPage extends StatefulWidget {
   final double fullDisplayWidth;
@@ -23,7 +24,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   //////////////// Color Data ///////////////////
-  final baseColor = Color.fromARGB(255, 149, 149, 149);
+  final baseColor = Color.fromARGB(255, 164, 164, 164);
   final accentColor = Color.fromARGB(255, 114, 114, 114);
   ///////////////////////////////////////////////
 
@@ -42,7 +43,9 @@ class _LandingPageState extends State<LandingPage> {
             CrossAxisAlignment.stretch, // Use stretch to fill horizontal space
         children: [
           ////////////////// App Bar /////////////////////
-          CustomAppBar(),
+          CustomAppBar(
+            accentColor: accentColor,
+          ),
           Stack(
             children: [
               Column(
@@ -55,7 +58,9 @@ class _LandingPageState extends State<LandingPage> {
             ],
           ),
           // Bottom Nav Bar
-          CustomBottomNavBar(),
+          CustomBottomNavBar(
+            accentColor: accentColor,
+          ),
         ],
       ),
     );

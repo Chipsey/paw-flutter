@@ -5,11 +5,12 @@ import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  final Color accentColor;
+  const CustomAppBar({super.key, required this.accentColor});
 
   @override
   Widget build(BuildContext context) {
-    const accentColor = Color.fromARGB(255, 114, 114, 114);
+    // const accentColor = Color.fromARGB(255, 114, 114, 114);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
