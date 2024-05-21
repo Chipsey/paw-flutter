@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paw/components/custom-rounded-button.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Color accentColor;
@@ -11,6 +13,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // const accentColor = Color.fromARGB(255, 114, 114, 114);
+    const buttonColor = Colors.blueGrey;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
@@ -22,65 +25,25 @@ class CustomAppBar extends StatelessWidget {
                 flex: 3,
                 child: Row(
                   children: [
-                    NeumorphicButton(
-                      curve: Curves.bounceIn,
-                      style: NeumorphicStyle(
-                        depth: 3,
-                        color: Colors.white,
-                        lightSource: LightSource.topLeft,
-                        boxShape: NeumorphicBoxShape.circle(),
-                      ),
-                      onPressed: () {},
-                      child: SvgPicture.asset(
-                        'assets/icons/paws.svg',
-                        width: 30,
-                        color: accentColor,
-                      ),
+                    CustomRoundedButton(
+                      icon: LineAwesomeIcons.paw_solid,
+                      iconColor: buttonColor,
+                      buttonText: 'Pets',
                     ),
-                    NeumorphicButton(
-                      curve: Curves.bounceIn,
-                      style: NeumorphicStyle(
-                        depth: 3,
-                        color: Colors.white,
-                        lightSource: LightSource.topLeft,
-                        boxShape: NeumorphicBoxShape.circle(),
-                      ),
-                      onPressed: () {},
-                      child: Image.asset(
-                        'assets/icons/heart-rate.png',
-                        width: 30,
-                        color: accentColor,
-                      ),
+                    CustomRoundedButton(
+                      icon: LineAwesomeIcons.heartbeat_solid,
+                      iconColor: buttonColor,
+                      buttonText: 'Health',
                     ),
-                    NeumorphicButton(
-                      curve: Curves.bounceIn,
-                      style: NeumorphicStyle(
-                        depth: 3,
-                        color: Colors.white,
-                        lightSource: LightSource.topLeft,
-                        boxShape: NeumorphicBoxShape.circle(),
-                      ),
-                      onPressed: () {},
-                      child: SvgPicture.asset(
-                        'assets/icons/doctor.svg',
-                        width: 30,
-                        color: accentColor,
-                      ),
+                    CustomRoundedButton(
+                      icon: LineAwesomeIcons.user_nurse_solid,
+                      iconColor: buttonColor,
+                      buttonText: 'Med',
                     ),
-                    NeumorphicButton(
-                      curve: Curves.bounceIn,
-                      style: NeumorphicStyle(
-                        depth: 3,
-                        color: Colors.white,
-                        lightSource: LightSource.topLeft,
-                        boxShape: NeumorphicBoxShape.circle(),
-                      ),
-                      onPressed: () {},
-                      child: Icon(
-                        Icons.location_on,
-                        color: accentColor,
-                        size: 30,
-                      ),
+                    CustomRoundedButton(
+                      icon: LineAwesomeIcons.map_marker_solid,
+                      iconColor: buttonColor,
+                      buttonText: 'Location',
                     ),
                   ],
                 ),
@@ -90,10 +53,10 @@ class CustomAppBar extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(
-                      'assets/icons/battery.svg',
-                      width: 40,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                    Icon(
+                      LineAwesomeIcons.battery_half_solid,
+                      color: Colors.blueGrey,
+                      size: 40,
                     ),
                   ],
                 ),

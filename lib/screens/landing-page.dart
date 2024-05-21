@@ -24,7 +24,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   //////////////// Color Data ///////////////////
-  final baseColor = Color.fromARGB(255, 164, 164, 164);
+  final baseColor = Color.fromARGB(255, 227, 237, 247);
   final accentColor = Color.fromARGB(255, 114, 114, 114);
   ///////////////////////////////////////////////
 

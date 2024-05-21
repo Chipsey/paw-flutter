@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:paw/components/sphere/d_curved.dart';
-import 'package:paw/components/sphere/shadow_sphere.dart';
+// import 'package:paw/components/sphere/d_curved.dart';
+// import 'package:paw/components/sphere/shadow_sphere.dart';
 import 'package:paw/components/sphere/sphere_density.dart';
 import 'package:image_picker/image_picker.dart';
 
